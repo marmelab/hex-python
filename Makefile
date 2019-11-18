@@ -1,4 +1,4 @@
-.PHONY: default install start test
+.PHONY: default start test
 
 .DEFAULT_GOAL := help
 
@@ -9,5 +9,8 @@ start: ## Start project
 	@echo "Start the project"
 	python3 src/main.py
 
-test: ## Launch the project's tests
-	@echo "Launch the tests"
+
+test: ## Start project
+	@echo "Launch tests"
+	python3 -m unittest /home/ubuntu/PycharmProjects/hex-python/src/main_test.py
+
