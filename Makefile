@@ -1,5 +1,9 @@
 .PHONY: default start test
 
+CONTAINER_NAME = python_hex
+PWD = $(shell pwd)
+DOCKER := docker run -it --rm $(CONTAINER_NAME)
+
 .DEFAULT_GOAL := help
 
 help:
@@ -7,10 +11,12 @@ help:
 
 start: ## Start project
 	@echo "Start the project"
-	python3 src/main.py -f assets/board.json
+	$(DOCKER) python3 src/main.py -f assets/board.json
 
+install: ## Build the docker
+	@echo "Build the container"
+	docker build -t $(CONTAINER_NAME) .
 
 test: ## Test the project
 	@echo "Launch tests"
-	python3 -m unittest
-
+	$(DOCKER) python3 -m unittest

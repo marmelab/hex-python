@@ -1,11 +1,11 @@
 import sys
 
 from render.render import render
-from board.generator.generator import generate
+from board.loader.loader import load
 
 path = sys.argv[2]
 
-board = generate(9)
-output = render(board)
+pattern = load(path)
+output = render(pattern)
 
 print(output)
