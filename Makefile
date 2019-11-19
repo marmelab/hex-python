@@ -10,7 +10,7 @@ start: ## Start project
 	python3 src/main.py -f assets/board.json
 
 
-test: ## Start project
+test: ## Test the project
 	@echo "Launch tests"
 	python3 -m unittest /home/ubuntu/PycharmProjects/hex-python/src/main_test.py
 
