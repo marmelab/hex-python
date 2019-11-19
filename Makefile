@@ -12,5 +12,5 @@ start: ## Start project
 
 test: ## Test the project
 	@echo "Launch tests"
-	python3 -m unittest /home/ubuntu/PycharmProjects/hex-python/src/main_test.py
+	python3 -m unittest
 
