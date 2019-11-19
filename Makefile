@@ -7,7 +7,7 @@ help:
 
 start: ## Start project
 	@echo "Start the project"
-	python3 src/main.py
+	python3 src/main.py -f assets/board.json
 
 
 test: ## Start project

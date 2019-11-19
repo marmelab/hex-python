@@ -1,9 +1,14 @@
+import json
+import sys
+
 class Board:
 
     grid = []
 
-    def __init__(self):
-        self.grid = [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 1, 1], [0, 0, 0, 0, 1]]
+    def load(self, path):
+        """ Load the board with JSON file path """
+        with open(path) as json_file:
+            self.grid = json.load(json_file)
 
     def render(self):
         """ This function returns a string containing the current state of the board """
@@ -24,5 +29,8 @@ class Board:
         return schema
 
 
-output = Board().render()
-print(output)
+path = sys.argv[2]
+
+board = Board()
+board.load(path)
+print(board.render())
