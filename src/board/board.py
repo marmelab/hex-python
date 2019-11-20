@@ -9,12 +9,10 @@ def put_stone(coords, board):
     line = get_x_index(coords[0])
     column = int(coords[1])
 
-    length = len(board)
-
-    if is_outside(length, line, column):
+    if is_outside(board, line, column):
         raise ValueError("Stone can't be put outside the board")
 
-    if is_already_taken_place(board, line, column):
+    if is_already_taken(board, line, column):
         raise ValueError("A stone already exists at this position")
 
     new_board[column - 1][line - 1] = 1
@@ -22,13 +20,14 @@ def put_stone(coords, board):
     return new_board
 
 
-def is_outside(length, line, column):
+def is_outside(board, line, column):
     """
     Check if the stone can be put inside the board
     """
+    length = len(board)
     return length <= line or length <= column
 
 
-def is_already_taken_place(board, line, column):
+def is_already_taken(board, line, column):
     """ Check if the place is already taken """
     return board[column][line] == 1
