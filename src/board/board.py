@@ -1,35 +1,34 @@
 from board.coord import get_x_index
 
 
-def put_stone(coords, pattern):
-    """ Put a stone on the coords provided."""
-
+def put_stone(coords, board):
+    new_board = board[:]
     if coords is None:
         raise ValueError("Coordinates for the stone is incorrect. Please, pick a new one")
 
-    line = get_x_index(coords[0]) - 1
-    column = int(coords[1]) - 1
+    line = get_x_index(coords[0])
+    column = int(coords[1])
 
-    lenght = len(pattern)
+    length = len(board)
 
-    if is_correct_position(lenght, line, column):
+    if is_outside(length, line, column):
         raise ValueError("Stone can't be put outside the board")
 
-    if is_already_taken_place(pattern, line, column):
+    if is_already_taken_place(board, line, column):
         raise ValueError("A stone already exists at this position")
 
-    pattern[column][line] = 1
+    new_board[column - 1][line - 1] = 1
 
-    return pattern
-
-
-def is_correct_position(length, line, column):
-    """ Check if the stone can be put inside the board """
-
-    return length > line & length > column
+    return new_board
 
 
-def is_already_taken_place(pattern, line, column):
+def is_outside(length, line, column):
+    """
+    Check if the stone can be put inside the board
+    """
+    return length <= line or length <= column
+
+
+def is_already_taken_place(board, line, column):
     """ Check if the place is already taken """
-
-    return pattern[column][line] == 1
+    return board[column][line] == 1

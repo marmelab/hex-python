@@ -9,11 +9,11 @@ from board.board import put_stone
 path = sys.argv[2]
 
 # Game initialization
-pattern = generate(9)
-output = render(pattern)
+board = generate(9)
+output = render(board)
 
 still_in_game = True
-print(render(pattern))
+print(render(board))
 
 while still_in_game:
 
@@ -24,8 +24,8 @@ while still_in_game:
     coords = get_coord(position)
 
     try:
-        pattern = put_stone(coords, pattern)
+        board = put_stone(coords, board)
     except ValueError as err:
         print(format(err))
 
-    print(render(pattern))
+    print(render(board))
