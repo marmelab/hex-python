@@ -1,25 +1,19 @@
-import unittest
+from render.render import render
 
-from src.render.render import render
 
-class TestLoader(unittest.TestCase):
+def test_can_render_a_state_of_the_board():
+    """ def render(board) """
+    actual = render([
+        [0, 0, 0, ],
+        [0, 0, 0, ],
+        [0, 0, 0, ]
+    ])
 
-    def test_render(self):
-        pattern = [
-            [0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0],
-            [0, 0, 0, 1, 1],
-            [0, 0, 0, 0, 1],
-        ]
+    expected = """  A B C 
+1 ⬡ ⬡ ⬡ 
+2  ⬡ ⬡ ⬡ 
+3   ⬡ ⬡ ⬡ 
+"""
 
-        actual = render(pattern)
-
-        expected = """⬡ ⬡ ⬡ ⬡ ⬡ 
- ⬡ ⬡ ⬡ ⬡ ⬡ 
-  ⬡ ⬡ ⬡ ⬡ ⬡ 
-   ⬡ ⬡ ⬡ ⬢ ⬢ 
-    ⬡ ⬡ ⬡ ⬡ ⬢ 
-     """
-
-        self.assertEqual(expected, actual)
+    print(actual)
+    assert expected == actual
