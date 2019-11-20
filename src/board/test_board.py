@@ -24,6 +24,9 @@ def test_can_check_is_coord_is_inside_the_board():
     actual = is_outside([[0, 0, 0], [0, 0, 0], [0, 0, 0]], 2, 1)
     assert expected == actual
 
+    actual = is_outside([[0, 0, 0], [0, 0, 0], [0, 0, 0]], 2, 2)
+    assert expected == actual
+
 
 def test_can_check_if_place_is_already_assigned():
     """ def is_already_taken(board, line, column) """
