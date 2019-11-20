@@ -3,7 +3,7 @@ import sys
 from render.render import render
 from board.generator import generate
 from game.game import clear
-from board.coord import get_coord
+from render.coord import get_coord
 from board.board import put_stone
 
 path = sys.argv[2]

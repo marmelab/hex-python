@@ -6,7 +6,6 @@ def render(board):
 
     schema = ""
     headers = "  "
-    size = len(board)
     alphabet = list(string.ascii_uppercase)
 
     alphabet.reverse()

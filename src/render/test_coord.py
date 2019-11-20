@@ -1,4 +1,4 @@
-from board.coord import get_coord, get_x_index
+from render.coord import get_coord, get_x_index
 
 
 def test_can_get_an_index_from_letter():

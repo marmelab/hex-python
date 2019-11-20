@@ -1,4 +1,4 @@
-from board.coord import get_x_index
+from render.coord import get_x_index
 
 
 def put_stone(coords, board):
