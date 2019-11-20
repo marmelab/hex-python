@@ -1,18 +1,27 @@
+import string
+
+
 def render(board):
     """ This function returns a string containing the current state of the board """
 
     schema = ""
+    headers = "  "
     size = len(board)
+    alphabet = list(string.ascii_uppercase)
+
+    alphabet.reverse()
 
     i = 0
     for line in board:
         line_txt = ""
+        headers += alphabet.pop().__add__(" ")
+
+        line_txt += str(i + 1).__add__(' ' * (i + 1))
         for stone in line:
             line_txt += "⬡ " if stone == 0 else "⬢ "
 
-        length = i + (size * 2) + 2
-        schema += line_txt.__add__("\n").ljust(length)
+        schema += line_txt.__add__("\n")
 
         i = i + 1
 
-    return schema
+    return headers.__add__("\n") + schema
