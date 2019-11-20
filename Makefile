@@ -19,4 +19,4 @@ install: ## Build the docker
 
 test: ## Test the project
 	@echo "Launch tests"
-	$(DOCKER) python3 -m unittest
+	$(DOCKER) pytest -v --pyargs src
