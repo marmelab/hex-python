@@ -1,11 +1,31 @@
 import sys
 
 from render.render import render
-from board.loader.loader import load
+from board.generator import generate
+from game.game import clear
+from board.coord import get_coord
+from board.board import put_stone
 
 path = sys.argv[2]
 
-pattern = load(path)
+# Game initialization
+pattern = generate(9)
 output = render(pattern)
 
-print(output)
+still_in_game = True
+print(render(pattern))
+
+while still_in_game:
+
+    position = input("Stone on : ")
+    clear()
+    print("You put a stone on " + position)
+
+    coords = get_coord(position)
+
+    try:
+        pattern = put_stone(coords, pattern)
+    except ValueError as err:
+        print(format(err))
+
+    print(render(pattern))

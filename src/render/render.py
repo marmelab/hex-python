@@ -1,4 +1,3 @@
-
 def render(board):
     """ This function returns a string containing the current state of the board """
 
