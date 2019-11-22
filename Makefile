@@ -11,7 +11,7 @@ help:
 
 start: ## Start project
 	@echo "Start the project"
-	$(DOCKER) python3 src/main.py -f assets/board.json
+	$(DOCKER) python3 src/main.py -f assets/mini-board.json
 
 install: ## Build the docker
 	@echo "Build the container"
