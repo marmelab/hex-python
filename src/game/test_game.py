@@ -1,13 +1,13 @@
-from game.game import game_winned, must_be_checked
+from game.game import is_won, must_be_checked
 
 
 def test_can_detect_if_a_classic_game_is_won():
-    """ game_winned(board) """
+    """ is_won(board) """
     expected = True
 
     board = [[1, 0, 0, 0, 0], [1, 0, 0, 0, 0], [1, 0, 0, 0, 0], [1, 0, 0, 0, 0], [1, 0, 0, 0, 0]]
 
-    actual = game_winned(board)
+    actual = is_won(board)
 
     assert expected == actual
 

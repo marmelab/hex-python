@@ -1,4 +1,33 @@
-from board.board import put_stone, is_outside, is_already_taken
+from board.board import put_stone, is_outside, is_already_taken, Board
+import json
+import os
+
+path = "assets/board_test.json"
+content = [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 1, 1, ], [0, 0, 0, 0, 1]]
+
+
+def setup_module():
+    with open(path, 'w') as outfile:
+        json.dump(content, outfile)
+
+
+def teardown_module():
+    os.remove(path)
+
+
+def test_can_load_a_json_file_of_coordinates():
+    """" def load(path) """
+    actual = Board.load(path).grid
+    expected = content
+
+    assert expected == actual
+
+
+def test_can_generate_an_empty_board():
+    """ def generate(size) """
+    expected = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
+    actual = Board.generate(3).grid
+    assert expected == actual
 
 
 def test_can_put_a_stone_on_board():
