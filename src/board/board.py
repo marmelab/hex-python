@@ -1,33 +1,68 @@
-from render.coord import get_x_index
+class Board:
+    size: 0
+    player1_stones: {}
+
+    # def load(self, path):
+    #     """ Load the board with JSON file path """
+    #     with open(path) as json_file:
+    #
+    #         grid = json.load(json_file)
+    #         self.size = len(grid)
+    #
+    #         for stone in grid:
+
+    def has_stone_at_coord(self, x, y):
+        """
+        :param x:
+        :param y:
+        :return:
+        """
+        for stone in self.player1_stones:
+            if stone.x == x and stone.y == y:
+                return True
+
+        return False
+
+    def generate(self, size):
+        """
+        Returns an empty board
+        :parameter size int Size board. Classical size are 9, 11, 14 or 19
+        :return board Object
+        """
+        self.size = size
+        self.player1_stones = set()
+
+        return self
+
+    def is_outside(self, x, y):
+        """
+        Check if the stone can be put inside the board
+        :param x:
+        :param y:
+        :return:
+        """
+        return self.size <= x or self.size <= y
+
+    def put_stone(self, stone):
+        """
+        :param x:
+        :param y:
+        :return:
+        """
+        self.player1_stones.add(stone)
 
 
-def put_stone(coords, board):
-    new_board = board[:]
-    if coords is None:
-        raise ValueError("Coordinates for the stone is incorrect. Please, pick a new one")
+class Stone:
+    x = None
+    y = None
 
-    line = get_x_index(coords[0]) - 1
-    column = int(coords[1]) - 1
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
 
-    if is_outside(board, line, column):
-        raise ValueError("Stone can't be put outside the board")
-
-    if is_already_taken(board, line, column):
-        raise ValueError("A stone already exists at this position")
-
-    new_board[column][line] = 1
-
-    return new_board
-
-
-def is_outside(board, line, column):
-    """
-    Check if the stone can be put inside the board
-    """
-    length = len(board)
-    return length <= line or length <= column
-
-
-def is_already_taken(board, line, column):
-    """ Check if the place is already taken """
-    return board[column][line] == 1
+    def as_string(self):
+        """
+        String representation of stone
+        :return: str
+        """
+        return str(self.x) + ',' + str(self.y)

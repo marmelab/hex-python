@@ -1,26 +1,52 @@
+import os
 import string
 
 
 def render(board):
     """ This function returns a string containing the current state of the board """
-
     schema = ""
     headers = "  "
-    alphabet = list(string.ascii_uppercase)
 
+    alphabet = list(string.ascii_uppercase)
     alphabet.reverse()
 
-    i = 0
-    for line in board:
+    y = 0
+
+    empty_grid = [[[i, j] for i in range(board.size)] for j in range(board.size)]
+
+    for line in empty_grid:
         line_txt = ""
-        headers += alphabet.pop().__add__(" ")
+        headers += alphabet.pop() + " "
+        line_txt += str(y + 1) + (' ' * (y + 1))
 
-        line_txt += str(i + 1).__add__(' ' * (i + 1))
-        for stone in line:
-            line_txt += "⬡ " if stone == 0 else "⬢ "
+        for slot in line:
+            line_txt += "⬢ " if board.has_stone_at_coord(slot[0], slot[1]) else "⬡ "
 
-        schema += line_txt.__add__("\n")
+        schema += line_txt + "\n"
+        y = y + 1
 
-        i = i + 1
+    return headers + "\n" + schema
 
-    return headers.__add__("\n") + schema
+
+def clear():
+    """
+    :return:
+    """
+    os.system('clear')
+
+
+def display_board(board):
+    """
+    This function prints the board in the console.
+    :param board:
+    :return:
+    """
+    print(render(board))
+
+
+def end_game(board):
+    """
+    :param board:
+    :return:
+    """
+    print("You win the game ! \n" + (render(board)) + "Congratulations !")
