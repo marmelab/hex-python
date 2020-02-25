@@ -1,15 +1,6 @@
 class Board:
     size: 0
-    stones: {}
-
-    # def load(self, path):
-    #     """ Load the board with JSON file path """
-    #     with open(path) as json_file:
-    #
-    #         grid = json.load(json_file)
-    #         self.size = len(grid)
-    #
-    #         for stone in grid:
+    player1_stones: {}
 
     def has_stone_at_coord(self, x, y):
         """
@@ -17,9 +8,8 @@ class Board:
         :param y:
         :return:
         """
-        for stone in self.stones:
+        for stone in self.player1_stones:
             if stone.x == x and stone.y == y:
-                print(x, y)
                 return True
 
         return False
@@ -31,7 +21,7 @@ class Board:
         :return board Object
         """
         self.size = size
-        self.stones = set()
+        self.player1_stones = set()
 
         return self
 
@@ -44,14 +34,12 @@ class Board:
         """
         return self.size <= x or self.size <= y
 
-    def put_stone(self, x, y):
+    def put_stone(self, stone):
         """
-        :param x:
-        :param y:
+        :param stone:
         :return:
         """
-        stone = Stone(x, y)
-        self.stones.add(stone)
+        self.player1_stones.add(stone)
 
 
 class Stone:
@@ -66,6 +54,5 @@ class Stone:
         """
         String representation of stone
         :return: str
-        """ 
-        
+        """
         return str(self.x) + ',' + str(self.y)

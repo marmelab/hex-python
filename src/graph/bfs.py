@@ -6,7 +6,7 @@ def bfs_paths(graph, start, goal):
     queue = [(start, [start])]
     while queue:
         (vertex, path) = queue.pop(0)
-        for next in graph[vertex] - set(path):
+        for next in graph.connections - set(path):
             if next == goal:
                 yield path + [next]
             else:

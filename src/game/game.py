@@ -1,6 +1,8 @@
 from render.render import display_board, end_game, clear
 from input.coord import ask_coords
-from board.board import Board
+from board.board import Board, Stone
+from graph.graph import Graph, Connection
+from graph.bfs import shortest_path
 
 MINI_SIZE = 5
 DEFAULT_SIZE = 11
@@ -16,7 +18,8 @@ def initialize():
     :return:
     """
     board = Board()
-    return board.generate(MINI_SIZE)
+    graph = Graph()
+    return board.generate(MINI_SIZE), graph
 
 
 def start():
@@ -24,18 +27,25 @@ def start():
     This function manage the game flow.
     :return:
     """
-    board = initialize()
+    board, graph = initialize()
+    display_board(board)
+
     turn = 0
     while True:
-
         turn = turn + 1
-
-        clear()
-        display_board(board)
-
         x, y = ask_coords(board)
 
-        board.put_stone(x, y)
+        stone = Stone(x, y)
+        board.put_stone(stone)
+
+        graph.load_from_board(board)
+
+        if shortest_path(graph, 'start', 'end') is None:
+            clear()
+            display_board(board)
+        else:
+            clear()
+            end_game(board)
 
 
 def must_be_checked(board, turn):

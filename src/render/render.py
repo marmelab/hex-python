@@ -6,23 +6,21 @@ def render(board):
     """ This function returns a string containing the current state of the board """
     schema = ""
     headers = "  "
-    alphabet = list(string.ascii_uppercase)
 
+    alphabet = list(string.ascii_uppercase)
     alphabet.reverse()
 
-    x = y = 0
+    y = 0
 
-    empty_grid = [[0 for i in range(board.size)] for j in range(board.size)]
+    empty_grid = [[[i, j] for i in range(board.size)] for j in range(board.size)]
 
-    for slot in empty_grid:
-
+    for line in empty_grid:
         line_txt = ""
         headers += alphabet.pop() + " "
         line_txt += str(y + 1) + (' ' * (y + 1))
 
-        for stone in slot:
-            line_txt += "⬢ " if board.has_stone_at_coord(x, y) else "⬡ "
-            x = x + 1
+        for slot in line:
+            line_txt += "⬢ " if board.has_stone_at_coord(slot[0], slot[1]) else "⬡ "
 
         schema += line_txt + "\n"
         y = y + 1
@@ -48,9 +46,7 @@ def display_board(board):
 
 def end_game(board):
     """
-
     :param board:
     :return:
     """
-    clear()
     print("You win the game ! \n" + (render(board)) + "Congratulations !")
