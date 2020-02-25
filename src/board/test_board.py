@@ -1,6 +1,7 @@
-from board.board import put_stone, is_outside, is_already_taken, Board
 import json
 import os
+
+from board.board import put_stone, is_outside, is_already_taken, Board
 
 path = "assets/board_test.json"
 content = [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 1, 1, ], [0, 0, 0, 0, 1]]

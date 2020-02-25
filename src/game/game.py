@@ -1,8 +1,8 @@
-from render.render import display_board, end_game, clear
-from input.coord import ask_coords
 from board.board import Board, Stone
-from graph.graph import Graph, Connection
 from graph.bfs import shortest_path
+from graph.graph import Graph
+from input.coord import ask_coords
+from render.render import display_board, end_game, clear
 
 MINI_SIZE = 5
 DEFAULT_SIZE = 11
