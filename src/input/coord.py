@@ -2,27 +2,20 @@ import re
 import string
 
 
-def ask_coords(board):
+class WrongInputException(Exception): pass
+
+
+class OutOfLimitException(Exception): pass
+
+
+def ask_coords():
     """
-    :return:
+    :return: [x, y]
     """
     code = input("Stone on : ")
-    regex = re.match("^([a-zA-Z]{1})([1-9]{1}[0-9]{0,1})$", code)
-    if regex is None:
-        print("Your input seems incorrect. Please check it and retry.")
-        return ask_coords(board)
+    matches = re.match("^([a-zA-Z]{1})([1-9]{1}[0-9]{0,1})$", code)
 
-    [x, y] = get_coords(regex)
-
-    if board.is_outside(x, y):
-        print("Stone can't be put outside the board")
-        return ask_coords(board)
-
-    if board.has_stone_at_coord(x, y):
-        print("A stone already exists at this position")
-        return ask_coords(board)
-
-    return x, y
+    return get_coords(matches)
 
 
 def get_x_index(letter):
@@ -32,17 +25,25 @@ def get_x_index(letter):
     :param letter:
     :return:
     """
-    return list(string.ascii_uppercase).index(letter.upper()) + 1
+    try:
+        x_index = list(string.ascii_uppercase).index(letter.upper()) + 1
+    except ValueError:
+        raise OutOfLimitException
+
+    return x_index
 
 
-def get_coords(regex):
+def get_coords(matches):
     """
-    :param regex:
+    :param matches:
     :return:
     """
-    coords = regex.groups()
+    if matches is None:
+        raise WrongInputException()
 
-    x = int(get_x_index(coords[0])) - 1
-    y = int(coords[1]) - 1
+    splitted_matches = matches.groups()
+
+    x = int(get_x_index(splitted_matches[0])) - 1
+    y = int(splitted_matches[1]) - 1
 
     return x, y

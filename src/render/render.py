@@ -1,5 +1,7 @@
+import math
 import os
 import string
+from board.board import has_stone_at_coord
 
 
 def render(board):
@@ -7,29 +9,30 @@ def render(board):
     schema = ""
     headers = "  "
 
-    alphabet = list(string.ascii_uppercase)
-    alphabet.reverse()
+    reversed_alphabet = list(string.ascii_uppercase[::-1])
+    size = len(board)
 
-    y = 0
+    x_range = int(math.sqrt(size))
+    y_range = x_range
 
-    empty_grid = [[[i, j] for i in range(board.size)] for j in range(board.size)]
-
-    for line in empty_grid:
+    line_number = 0
+    for x in range(x_range):
         line_txt = ""
-        headers += alphabet.pop() + " "
-        line_txt += str(y + 1) + (' ' * (y + 1))
+        headers += reversed_alphabet.pop() + " "
+        line_txt += str(line_number + 1) + (' ' * (line_number + 1))
 
-        for slot in line:
-            line_txt += "⬢ " if board.has_stone_at_coord(slot[0], slot[1]) else "⬡ "
+        for y in range(y_range):
+            line_txt += "⬢ " if has_stone_at_coord(board, x, y) else "⬡ "
 
         schema += line_txt + "\n"
-        y = y + 1
+        line_number = line_number + 1
 
     return headers + "\n" + schema
 
 
 def clear():
     """
+    Clear the current output
     :return:
     """
     os.system('clear')

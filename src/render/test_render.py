@@ -4,9 +4,9 @@ from render.render import render
 def test_can_render_a_state_of_the_board():
     """ def render(board) """
     actual = render([
-        [0, 0, 0, ],
-        [0, 0, 0, ],
-        [0, 0, 0, ]
+        [0, 0, 0], [0, 1, 0], [0, 2, 0],
+        [1, 0, 0], [1, 1, 0], [1, 2, 0],
+        [2, 0, 0], [2, 1, 0], [2, 2, 0],
     ])
 
     expected = """  A B C 
@@ -14,6 +14,4 @@ def test_can_render_a_state_of_the_board():
 2  ⬡ ⬡ ⬡ 
 3   ⬡ ⬡ ⬡ 
 """
-
-    print(actual)
     assert expected == actual

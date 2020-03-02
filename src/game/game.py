@@ -1,7 +1,6 @@
-from board.board import Board, Stone
+from board.board import generate, put_stone, is_valid_move, HasAlreadyAStoneException, IsOutsideException
 from graph.bfs import shortest_path
-from graph.graph import Graph
-from input.coord import ask_coords
+from input.coord import *
 from render.render import display_board, end_game, clear
 
 MINI_SIZE = 5
@@ -9,43 +8,45 @@ DEFAULT_SIZE = 11
 HARD_SIZE = 14
 
 
-def initialize():
-    """
-    Game initialization
-    Can be load with :
-        path = sys.argv[2]
-        board = board.load(path)
-    :return:
-    """
-    board = Board()
-    graph = Graph()
-    return board.generate(MINI_SIZE), graph
-
-
 def start():
     """
     This function manage the game flow.
     :return:
     """
-    board, graph = initialize()
+    board = generate(MINI_SIZE)
+    player1_stones = set()
     display_board(board)
 
     turn = 0
     while True:
+
+        try:
+            x, y = ask_coords()
+            is_valid_move(board, x, y)
+
+        except WrongInputException:
+            print("Your input seems incorrect. Please check it and retry.")
+            continue
+
+        except IsOutsideException:
+            print("Stone can't be put outside the board")
+            continue
+
+        except HasAlreadyAStoneException:
+            print("A stone already exists at this position")
+            continue
+
         turn = turn + 1
-        x, y = ask_coords(board)
-
-        stone = Stone(x, y)
-        board.put_stone(stone)
-
-        graph.load_from_board(board)
-
-        if shortest_path(graph, 'start', 'end') is None:
-            clear()
-            display_board(board)
-        else:
-            clear()
-            end_game(board)
+        put_stone(board, x, y)
+    #
+    #     graph.load_from_board(board)
+    #
+    #     if shortest_path(graph, 'start', 'end') is None:
+    #         clear()
+        display_board(board)
+    #     else:
+    #         clear()
+    #         end_game(board)
 
 
 def must_be_checked(board, turn):
